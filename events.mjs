@@ -6,9 +6,11 @@ import {EventEmitter } from 'events'
 
 const myEmitter = new EventEmitter();
 
-myEmitter.on('timeout', (secondsQuantity) => {
+const timeoutListenerFN = (secondsQuantity) => {
     console.log(`Timeout event in ${secondsQuantity} seconds`);
-});
+};
+
+myEmitter.on('timeout', timeoutListenerFN);
 
 //myEmitter.emit('timeout');
 
@@ -34,4 +36,8 @@ setTimeout(() => {
     myEmitter.emit('singleEvent');
 }, 4000);
 
+
+setTimeout(() => {
+    myEmitter.off('timeout', timeoutListenerFN);
+}, 3000);
 
