@@ -32,6 +32,10 @@ const server = http.createServer((req, res) => {
         res.setHeader = ('Content-Type', 'application/json');
         return res.end(JSON.stringify(comments));
     }
+
+    res.statusCode = 404;
+    res.setHeader('Content-Type', 'text/html');
+    return res.end('<H1> Page not found');
 });
 
 server.listen(PORT, () => {
