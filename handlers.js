@@ -1,12 +1,6 @@
 
 const comments = require('./data');
 
-function getComments(req, res){
-    res.statusCode = 200;
-    res.setHeader = ('content-ype', 'application/json');
-    return res.end(JSON.stringify(comments));
-}
-
 function getHTML(req, res){
     console.log(req);
     res.statusCode = 200;
@@ -29,9 +23,31 @@ function handleNotFound(req, res){
     return res.end('<H1> Page not found');
 }
 
+function getComments(req, res){
+    res.statusCode = 200;
+    res.setHeader = ('Content-Type', 'application/json');
+    return res.end(JSON.stringify(comments));
+}
+
+function postComment(req, res){
+    let comment = '';
+
+    req.on('data', (chunk) => comment += chunk );
+
+    req.on('end', () => {
+        comments.push(JSON.parse(comment));
+        res.statusCode = 200;
+        res.end('Data was received')
+    });
+
+    return postComment(req, res);
+
+};
+
 module.exports = {
     getHTML,
     getText,
     getComments,
-    handleNotFound
+    handleNotFound,
+    postComment
 };
