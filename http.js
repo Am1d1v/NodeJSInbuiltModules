@@ -2,40 +2,23 @@
 
 const http = require('http');
 const PORT = 5000;
-
-const comments = [
-    {id: 100, text: "First Comment"},
-    {id: 101, text: "Second Comment"},
-    {id: 102, text: "Third Comment"}
-];
+const {getHTML, getText, getComments, handleNotFound} = require('./handlers');
 
 
 const server = http.createServer((req, res) => {
-    if(req.url === '/http'){
-        console.log(req);
-        res.statusCode = 200;
-        res.setHeader = ('Content-Type', 'text/plain');
-        res.write('<html><body><div>');
-        res.write('Hello');
-        res.write('</div></body></html>');
-        return res.end('Greetings');
+    if(req.method = 'GET' && req.url === '/http'){
+       return getHTML(req, res);
     }
 
-    if(req.url === '/text'){
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plan');
-        return res.end('Some text');
+    if(req.method = 'GET' && req.url === '/text'){
+        return getText(req, res);
     }
 
-    if(req.url === '/json'){
-        res.statusCode = 200;
-        res.setHeader = ('Content-Type', 'application/json');
-        return res.end(JSON.stringify(comments));
+    if(req.method = 'GET' && req.url === '/comments'){
+        return getComments(req, res);
     }
 
-    res.statusCode = 404;
-    res.setHeader('Content-Type', 'text/html');
-    return res.end('<H1> Page not found');
+    handleNotFound(req, res);
 });
 
 server.listen(PORT, () => {
