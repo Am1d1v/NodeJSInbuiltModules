@@ -3,6 +3,6 @@ const express = require('express');
 const app = express();
 
 app.get('/', function(req, res){
-    res.send('Greetngs');
+    res.send('Greetings');
 })
 app.listen(3000);
