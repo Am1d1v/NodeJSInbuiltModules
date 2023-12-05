@@ -1,10 +1,8 @@
-const fs = require('fs');
+const express = require('express');
+//console.log(express);
+const app = express();
 
-const WriteStream = fs.createWriteStream('./file.txt');
-
-WriteStream.write('Some Data');
-WriteStream.write('\n');
-WriteStream.write('Info');
-
-WriteStream.end();
-
+app.get('/', function(req, res){
+    res.send('Greetngs');
+})
+app.listen(3000);
